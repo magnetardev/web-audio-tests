@@ -5,7 +5,6 @@ export class RingBuffer {
 	bufferLength: number;
 	channelCount: number;
 
-	/// Creates the state object that is safe to be transferred between threads
 	constructor(size: number, channelCount = 2) {
 		const buffer = new Float32Array(size * channelCount);
 		this.read = 0;
@@ -16,7 +15,6 @@ export class RingBuffer {
 	}
 
 	/// Write bytes into the buffer.
-	/// `state` is equivalent to `this`, but by structuring the code this way its easier to code split
 	///
 	/// input is the bytes to write, though is expected to be formatted as: 
 	/// [channel_a, channel_b, channel_a, channel_b, ...]
@@ -63,7 +61,6 @@ export class RingBuffer {
 	}
 
 	/// Read bytes from the buffers into the given channels.
-	/// `state` is equivalent to `this`, but by structuring the code this way its easier to code split
 	///
 	/// channels is an array of output channels to write to. They are expected to be equal.
 	dequeue(channels: Float32Array[]): boolean {

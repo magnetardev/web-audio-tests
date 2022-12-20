@@ -1,3 +1,5 @@
+import { unmute } from "../unmute"
+
 export const playButton = document.getElementById("play") as HTMLButtonElement;
 
 export const pauseButton = document.getElementById(
@@ -22,6 +24,7 @@ export function createAudioContext() {
 	let contextConstructor: AudioContextConstructor =
 		self.AudioContext ||
 		((self as any).webkitAudioContext as AudioContextConstructor);
+	unmute();
 	return new contextConstructor();
 }
 

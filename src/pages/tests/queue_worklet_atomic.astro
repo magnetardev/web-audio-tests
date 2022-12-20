@@ -5,8 +5,11 @@ export const kind = "buffered";
 ---
 
 <Layout title={title} kind={kind}>
-	<p>You need to be on iOS 14+ or a browser that supports SharedArrayBuffer and Atomics!</p>
+	<p>Are SharedArrayBuffer and Atomics supported?: <span id="supported"></span></p>
+	<p>You need to be on iOS 15.2+ or a browser that supports SharedArrayBuffer and Atomics to run this test.</p>
 	<script>
 		import "../../logic/worklet_node/queue_atomic";
+
+		document.getElementById("supported").innerText = self.crossOriginIsolated && self.SharedArrayBuffer && self.Atomics ? "✅" : "❌";
 	</script>
 </Layout>

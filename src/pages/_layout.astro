@@ -1,0 +1,53 @@
+---
+import "../global.css";
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{Astro.props.title}</title>
+		<styles>
+			.kind {
+				text-transform: uppercase;
+				margin-bottom: -1rem;
+				font-size: 0.9rem;
+				opacity: 0.6;
+				font-weight: 600;
+			}
+
+			.playback, .playback label {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+
+			.playback {
+				background-color: rgba(121, 121, 121, 0.15);
+				padding: 1rem;
+				border-radius: 0.5rem;
+			}
+		</styles>
+	</head>
+	<body>
+		<div class="content">
+			<a href="/web-audio-tests/">Home</a>
+			<p class="kind">{Astro.props.kind}</p>
+			<h1>{Astro.props.title}</h1>
+			<div class="playback">
+				<div>
+					<button id="play">Play</button>
+					<button disabled id="pause">Pause</button>
+				</div>
+				<label for="volume">
+					<span>Volume:</span>
+					<input disabled type="range" name="volume" id="volume" min="0" max="1" step="0.05" value="0.15" />
+				</label>
+			</div>
+			<slot />
+			<script is:inline src="/web-audio-tests/coi-serviceworker.min.js"></script>
+		</div>
+	</body>
+</html>

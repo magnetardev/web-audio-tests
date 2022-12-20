@@ -1,0 +1,11 @@
+---
+import Layout from "../_layout.astro";
+export const title = "Worklet Node (Atomic)";
+export const kind = "buffered";
+---
+
+<Layout title={title} kind={kind}>
+	<script>
+		import "../../logic/worklet_node/queue_atomic";
+	</script>
+</Layout>

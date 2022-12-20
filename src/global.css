@@ -1,0 +1,34 @@
+:root {
+	--tint: #3A74F5;
+}
+
+body {
+	font-family: system-ui, -apple-system, sans-serif;
+	accent-color: var(--tint);
+}
+
+* {
+	box-sizing: border-box;
+}
+
+.content {
+	max-width: 42rem;
+	width: 100%;
+	margin: auto;
+	padding: 2rem 1rem;
+}
+
+p {
+	line-height: 1.5rem;
+}
+
+a {
+	color: var(--tint);
+}
+
+@media (prefers-color-scheme: dark) {
+	html {
+		color-scheme: dark;
+	}
+}
+

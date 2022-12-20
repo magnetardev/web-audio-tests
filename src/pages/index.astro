@@ -1,0 +1,45 @@
+---
+import "../global.css";
+const tests = await Astro.glob("./tests/*.astro");
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<title>Web Audio Tests</title>
+	</head>
+	<body>
+		<div class="content">
+			<h1>Audio Tests</h1>
+			<h2>Direct Write</h2>
+			<p>Write directly to the output buffer. There should be no stuttering or lag present.</p>
+			<ul>
+				{
+					tests.filter((page) => page.kind === "direct").map((page) => (
+						<li>
+							{/* @ts-ignore: export title on the components */}
+							<a href={page.url}>{page.title}</a>
+						</li>
+					))
+				}
+			</ul>
+
+			<h2>Queued Write</h2>
+			<p>Use a ring buffer to queue samples; dequeue when it needs to be read.</p>
+			<ul>
+				{
+					tests.filter((page) => page.kind === "buffered").map((page) => (
+						<li>
+							{/* @ts-ignore: export title on the components */}
+							<a href={page.url}>{page.title}</a>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+		<script is:inline src="/web-audio-tests/coi-serviceworker.min.js"></script>
+	</body>
+</html>
+

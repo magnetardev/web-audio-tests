@@ -16,7 +16,7 @@ async function init() {
 	gainNode = context.gainNode;
 	sourceNode = context.sourceNode;
 	scriptNode = context.scriptNode;
-	let bufferSize = scriptNode.bufferSize * 2;
+	let bufferSize = audioContext.sampleRate * 2;
 	samplesBuffer = new Float32Array(bufferSize);
 	queue = new RingBuffer(bufferSize * 2, 2);
 	bindUI(audioContext, gainNode);

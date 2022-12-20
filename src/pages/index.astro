@@ -1,7 +1,37 @@
 ---
 import "../global.css";
-const tests = await Astro.glob("./tests/*.astro");
-/* const tests = []; */
+
+// NOTE: Astro.glob is broken and includes assets from the glob'd files...
+/* const tests = await Astro.glob("./tests/*.astro"); */
+
+const tests = [
+	{
+		title: "Script Processor Node",
+		url: "/web-audio-tests/tests/direct_spn/",
+		kind: "direct",
+	},
+	{
+		title: "Audio Worklet Node",
+		url: "/web-audio-tests/tests/direct_worklet/",
+		kind: "direct",
+	},
+	// buffered
+	{
+		title: "Script Processor Node",
+		url: "/web-audio-tests/tests/queue_spn/",
+		kind: "buffered",
+	},
+	{
+		title: "Audio Worklet Node (Sync)",
+		url: "/web-audio-tests/tests/queue_worklet/",
+		kind: "buffered",
+	},
+	{
+		title: "Audio Worklet Node (Atomic)",
+		url: "/web-audio-tests/tests/queue_worklet_atomic/",
+		kind: "buffered",
+	},
+];
 ---
 
 <html lang="en">
@@ -20,7 +50,6 @@ const tests = await Astro.glob("./tests/*.astro");
 				{
 					tests.filter((page) => page.kind === "direct").map((page) => (
 						<li>
-							{/* @ts-ignore: export title on the components */}
 							<a href={page.url}>{page.title}</a>
 						</li>
 					))
@@ -33,7 +62,6 @@ const tests = await Astro.glob("./tests/*.astro");
 				{
 					tests.filter((page) => page.kind === "buffered").map((page) => (
 						<li>
-							{/* @ts-ignore: export title on the components */}
 							<a href={page.url}>{page.title}</a>
 						</li>
 					))

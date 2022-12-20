@@ -1,4 +1,4 @@
-import { generateWhiteNoiseSample } from "../../util";
+import { generateWhiteNoiseSample } from "../../util/sounds";
 
 class DirectProcessor extends AudioWorkletProcessor {
 	process(_: Float32Array[][], outputs: Float32Array[][]) {

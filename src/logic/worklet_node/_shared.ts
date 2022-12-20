@@ -1,4 +1,5 @@
 import { createAudioContext } from "../util";
+import { UnmuteHandler, generateSilence } from "../unmute";
 
 export async function initalizeContext(
 	workletUrl: string,
@@ -8,6 +9,7 @@ export async function initalizeContext(
 	const audioContext = createAudioContext();
 	const gainNode = audioContext.createGain();
 	gainNode.connect(audioContext.destination);
+	let unmuteHandler = new UnmuteHandler(audioContext, generateSilence());
 
 	await audioContext.audioWorklet.addModule(workletUrl);
 	const workletNode = new AudioWorkletNode(audioContext, workletName, {
@@ -18,5 +20,5 @@ export async function initalizeContext(
 	});
 	workletNode.connect(gainNode);
 
-	return { audioContext, gainNode, workletNode };
+	return { audioContext, gainNode, workletNode, unmuteHandler };
 }

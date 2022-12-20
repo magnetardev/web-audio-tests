@@ -9,7 +9,7 @@ const READ_OFFSET = 0;
 const WRITE_OFFSET = 1;
 const FIELDS_LENGTH = 2;
 
-/// Creates the state object that is safe to be transferred between threads
+/** Creates the state object that is safe to be transferred between threads */
 export function createRingBuffer(size: number, channelCount = 2): AtomicRingBuffer {
 	const fieldsLength = FIELDS_LENGTH * Uint32Array.BYTES_PER_ELEMENT;
 	const bufferLength = size * Float32Array.BYTES_PER_ELEMENT * channelCount;
@@ -24,11 +24,13 @@ export function createRingBuffer(size: number, channelCount = 2): AtomicRingBuff
 	};
 }
 
-/// Write bytes into the buffer.
-/// `state` is equivalent to `this`, but by structuring the code this way its easier to code split
-///
-/// input is the bytes to write, though is expected to be formatted as: 
-/// [channel_a, channel_b, channel_a, channel_b, ...]
+/**
+ * Write bytes into the buffer.
+ *`state` is equivalent to `this`, but by structuring the code this way its easier to code split
+ *
+ * input is the bytes to write, though is expected to be formatted as: 
+ * [channel_a, channel_b, channel_a, channel_b, ...] 
+ */
 export function enqueue(state: AtomicRingBuffer, input: Float32Array): boolean {
 	// put state fields into variables to save on object lookups 
 	const fields = state.fields;
@@ -72,10 +74,12 @@ export function enqueue(state: AtomicRingBuffer, input: Float32Array): boolean {
 	return true;
 }
 
-/// Read bytes from the buffers into the given channels.
-/// `state` is equivalent to `this`, but by structuring the code this way its easier to code split
-///
-/// channels is an array of output channels to write to. They are expected to be equal.
+/** 
+ * Read bytes from the buffers into the given channels.
+ * `state` is equivalent to `this`, but by structuring the code this way its easier to code split
+ *
+ * channels is an array of output channels to write to. They are expected to be equal.
+ */
 export function dequeue(state: AtomicRingBuffer, channels: Float32Array[]): boolean {
 	// Get the desired length to write, if it exists
 	const desiredLength = channels[0]?.length;
@@ -100,11 +104,9 @@ export function dequeue(state: AtomicRingBuffer, channels: Float32Array[]): bool
 	}
 
 	// determine if the read needs to be split
-	let nextRead = read + desiredLength;
-	const needsSplit = nextRead > bufferLength;
-
 	// do the reading, based on whether or not it needs to be split
-	if (needsSplit) {
+	let nextRead = read + desiredLength;
+	if (nextRead > bufferLength) {
 		nextRead -= bufferLength;
 		const firstHalf = buffer.subarray(read);
 		const secondHalf = buffer.subarray(0, nextRead);
@@ -138,7 +140,7 @@ export function dequeue(state: AtomicRingBuffer, channels: Float32Array[]): bool
 	return true;
 }
 
-/// clear the data in the state and reset it
+/** clear the data in the state and reset it */
 export function clear(state: AtomicRingBuffer) {
 	state.buffer.fill(0);
 	const fields = state.fields;

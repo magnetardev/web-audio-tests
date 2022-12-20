@@ -53,3 +53,4 @@ export function writeWhiteNoiseToBuffer(buffer: AudioBuffer) {
 		right[i] = generateWhiteNoiseSample();
 	}
 }
+

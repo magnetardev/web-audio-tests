@@ -8,7 +8,7 @@ export const kind = "buffered";
 	<p>Are SharedArrayBuffer and Atomics supported?: <span id="supported"></span></p>
 	<p>You need to be on iOS 15.2+ or a browser that supports SharedArrayBuffer and Atomics to run this test.</p>
 	<script>
-		import "../../logic/worklet_node/queue_atomic";
+		import "../../logic/queue_worklet_atomic";
 
 		document.getElementById("supported").innerText = self.crossOriginIsolated && self.SharedArrayBuffer && self.Atomics ? "✅" : "❌";
 	</script>

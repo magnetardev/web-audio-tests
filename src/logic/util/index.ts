@@ -1,5 +1,6 @@
-import { unmute } from "../unmute"
+export * from "./context";
 export * from "./sounds";
+export * from "./unmute";
 
 export const playButton = document.getElementById("play") as HTMLButtonElement;
 
@@ -18,15 +19,6 @@ export function bindUI(context: AudioContext, gainNode: GainNode) {
 	volumeSlider.addEventListener("input", handleVolume.bind(gainNode));
 	volumeSlider.disabled = false;
 	gainNode.gain.value = +volumeSlider.value;
-}
-
-export function createAudioContext() {
-	type AudioContextConstructor = typeof AudioContext;
-	let contextConstructor: AudioContextConstructor =
-		self.AudioContext ||
-		((self as any).webkitAudioContext as AudioContextConstructor);
-	unmute();
-	return new contextConstructor();
 }
 
 export function handlePause(this: AudioContext) {

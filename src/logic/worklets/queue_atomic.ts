@@ -1,19 +1,18 @@
-import { AtomicRingBuffer, dequeue } from "../../util/atomic_queue";
+import type { AtomicRingBuffer } from "../util/queue/atomic";
+import { dequeue } from "../util/queue/atomic";
 
 class AtomicRingProcessor extends AudioWorkletProcessor {
 	buffer: AtomicRingBuffer;
 	dequeue: (output: Float32Array[]) => boolean;
 
 	constructor(options: AudioWorkletNodeOptions) {
-		super(options);
+		super();
 		this.buffer = options.processorOptions.buffer;
 		this.dequeue = dequeue.bind(this, this.buffer);
 	}
 
 	process(_: Float32Array[][], outputs: Float32Array[][]) {
-		if (!this.dequeue(outputs[0])) {
-			console.log("oof");
-		}
+		this.dequeue(outputs[0]);
 		return true;
 	}
 }
